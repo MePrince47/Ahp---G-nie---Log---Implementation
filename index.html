@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélecteur de Téléphone AHP</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sélecteur de Téléphone AHP</h1>
+            <p>Utilisez la méthode AHP pour choisir le meilleur téléphone selon vos préférences</p>
+            <button id="theme-toggle" class="theme-toggle">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </header>
+
+        <main>
+            <section class="intro">
+                <h2>Comment ça marche ?</h2>
+                <p>La méthode AHP (Analytic Hierarchy Process) vous aide à prendre des décisions complexes en comparant l'importance relative de différents critères.</p>
+                <ol>
+                    <li>Remplissez la matrice de comparaison des critères ci-dessous</li>
+                    <li>Utilisez l'échelle de 1 à 9 pour indiquer l'importance relative</li>
+                    <li>1 = importance égale, 9 = importance extrême</li>
+                    <li>Cliquez sur "Calculer" pour voir les résultats</li>
+                </ol>
+            </section>
+
+            <section class="criteria-matrix">
+                <h2>Matrice de Comparaison des Critères</h2>
+                <p>Comparez l'importance relative de chaque critère par rapport aux autres</p>
+                
+                <div class="matrix-container">
+                    <table id="criteria-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Mémoire</th>
+                                <th>Stockage</th>
+                                <th>Fréquence CPU</th>
+                                <th>Prix</th>
+                                <th>Marque</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Mémoire</th>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                            </tr>
+                            <tr>
+                                <th>Stockage</th>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                            </tr>
+                            <tr>
+                                <th>Fréquence CPU</th>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                            </tr>
+                            <tr>
+                                <th>Prix</th>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1"></td>
+                            </tr>
+                            <tr>
+                                <th>Marque</th>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                                <td><input type="number" min="1" max="9" value="1" disabled></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="scale-info">
+                    <h3>Échelle d'importance</h3>
+                    <ul>
+                        <li><strong>1</strong> : Importance égale</li>
+                        <li><strong>3</strong> : Importance modérée</li>
+                        <li><strong>5</strong> : Importance forte</li>
+                        <li><strong>7</strong> : Importance très forte</li>
+                        <li><strong>9</strong> : Importance extrême</li>
+                        <li><strong>2, 4, 6, 8</strong> : Valeurs intermédiaires</li>
+                    </ul>
+                </div>
+
+                <div class="actions">
+                    <button id="calculate-btn" class="primary-btn">Calculer</button>
+                    <button id="reset-btn" class="secondary-btn">Réinitialiser</button>
+                </div>
+            </section>
+
+            <section id="results-section" class="results hidden">
+                <h2>Résultats</h2>
+                
+                <div class="recommendation">
+                    <h3>Téléphone Recommandé</h3>
+                    <div id="top-phone" class="top-phone"></div>
+                </div>
+
+                <div class="criteria-weights">
+                    <h3>Poids des Critères</h3>
+                    <div id="criteria-weights-chart" class="chart"></div>
+                </div>
+
+                <div class="phone-scores">
+                    <h3>Scores des Téléphones</h3>
+                    <div id="phone-scores-chart" class="chart"></div>
+                </div>
+
+                <div class="detailed-results">
+                    <h3>Résultats Détaillés</h3>
+                    <table id="results-table">
+                        <thead>
+                            <tr>
+                                <th>Téléphone</th>
+                                <th>Score</th>
+                                <th>Rang</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <!-- Résultats générés dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Créé avec la méthode AHP (Analytic Hierarchy Process) | <a href="https://github.com/MePrince47" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
